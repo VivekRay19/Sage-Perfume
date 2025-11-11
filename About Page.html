@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About — Sage Perfumes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#0f0520;
+      --bg2:#1f0638;
+      --accent:#9b5cff;
+      --gold:#e7c46a;
+      --muted:rgba(255,255,255,0.75);
+      --card:#0b0712;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;font-family:Montserrat,system-ui,Arial;background:linear-gradient(90deg,var(--bg1) 0%,var(--bg2) 60%);color:#fff;overflow-x:hidden}
+    a{color:inherit}
+    header{display:flex;align-items:center;justify-content:space-between;padding:28px 40px}
+    .brand{display:flex;align-items:center;gap:18px}
+    .logo img{width:64px;border-radius:10px}
+    nav{display:flex;gap:22px;align-items:center}
+    nav a{color:var(--muted);text-decoration:none;font-size:18px;padding-bottom:6px}
+    nav a.active{color:var(--gold);font-weight:700;border-bottom:3px solid var(--gold)}
+    .right-icons{display:flex;gap:12px;align-items:center}
+    .icon{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#00000022;cursor:pointer}
+
+    main{max-width:1200px;margin:28px auto;padding:20px}
+    .hero{
+      display:grid;
+      grid-template-columns:1fr 420px;
+      gap:36px;
+      align-items:start;
+      margin-bottom:28px;
+    }
+    .hero-left h1{
+      font-family:'Playfair Display',serif;
+      font-size:48px;
+      color:var(--accent);
+      margin-bottom:12px;
+      line-height:1.03;
+    }
+    .hero-lead{
+      font-size:18px;color:var(--muted);max-width:780px;margin-bottom:18px;
+    }
+    .hero-cta{display:flex;gap:12px;align-items:center}
+
+    .card{
+      background:linear-gradient(180deg,#140422,#220533);
+      border-radius:14px;padding:18px;border:1px solid rgba(255,255,255,0.04);
+      box-shadow:0 20px 50px rgba(0,0,0,0.6)
+    }
+
+    .values{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:30px 0}
+    .value{background:linear-gradient(180deg,#0d0820,#19042f);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    .value h4{color:var(--gold);font-family:'Playfair Display',serif;margin-bottom:8px}
+    .value p{color:var(--muted);font-size:15px;line-height:1.5}
+
+    .notes-team{display:grid;grid-template-columns:1fr 360px;gap:28px;margin-top:20px}
+    .notes h3{color:var(--gold);font-family:'Playfair Display',serif;margin-bottom:12px}
+    .notes p{color:var(--muted);line-height:1.6;margin-bottom:12px}
+    .list{display:flex;gap:10px;flex-wrap:wrap}
+    .note-pill{background:rgba(255,255,255,0.04);padding:8px 12px;border-radius:999px;color:#fff;font-size:14px;border:1px solid rgba(255,255,255,0.03)}
+
+    .team .person{display:flex;gap:12px;align-items:center;margin-bottom:14px}
+    .avatar{width:72px;height:72px;border-radius:12px;background:linear-gradient(180deg,#2b1063,#1a073a);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--gold);font-family:'Playfair Display',serif}
+    .person .meta h5{margin-bottom:6px;font-size:16px}
+    .person .meta p{color:var(--muted);font-size:14px;margin:0}
+
+    .contact{margin-top:12px;background:linear-gradient(180deg,#0b0712,#0f071a);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    .contact a{display:inline-block;margin-top:8px;color:var(--gold);text-decoration:none;padding:8px 12px;border-radius:8px;background:rgba(231,196,106,0.06)}
+
+    footer{padding:28px;text-align:center;color:var(--muted);font-size:15px;border-top:1px solid rgba(255,255,255,0.04);margin-top:40px}
+
+    @media (max-width:980px){
+      header{padding:20px}
+      .hero{grid-template-columns:1fr;gap:20px}
+      .values{grid-template-columns:1fr}
+      .notes-team{grid-template-columns:1fr}
+      .logo img{width:56px}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo"><img src="D:/Flame Files/Sem 2/Graphic Design/Website/Golden.png" alt="Sage logo"></div>
+      <nav>
+        <a href="D:\Flame Files\Sem 2\Graphic Design\Website\Index.html">Home</a>
+        <a class="active" href="D:\Flame Files\Sem 2\Graphic Design\Website\About Page.html">About</a>
+        <a href="D:\Flame Files\Sem 2\Graphic Design\Website\Contact Page.html">Contact</a>
+      </nav>
+    </div>
+
+    <div class="right-icons">
+      <!-- <div class="icon" title="Search">🔍</div> -->
+      <div class="icon" title="Account">👤</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero card">
+      <div class="hero-left">
+        <h1>We craft scents that tell a story</h1>
+        <div class="hero-lead">
+          Sage Perfumes began as a small atelier where classic perfumery technique meets modern sensibility. Each bottle is blended by hand and refined over time — inspired by memory, place and seasonal light.
+        </div>
+        <div class="hero-cta">
+          <a href="D:\Flame Files\Sem 2\Graphic Design\Website\Index.html" style="background:var(--gold);color:#111;padding:12px 18px;border-radius:26px;text-decoration:none;font-weight:700">Explore Collection</a>
+          <a href="#notes" style="color:var(--muted);text-decoration:underline;padding:10px 12px">Learn about our notes</a>
+        </div>
+      </div>
+
+      <aside style="display:flex;align-items:center;justify-content:center">
+        <div style="max-width:320px;text-align:center">
+          <img src="D:/Flame Files/Sem 2/Graphic Design/Website/Main bottle.png" alt="Signature" style="width:100%;border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,0.6);">
+          <div style="margin-top:12px;color:var(--muted);font-size:15px">Signature — $129</div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="values" aria-labelledby="philosophy">
+      <div class="value">
+        <h4 id="philosophy">Our Philosophy</h4>
+        <p>We compose fragrances in layers—inviting top notes, evocative hearts and grounding base notes. Our aim: elegance that reveals itself over time, not immediately fades.</p>
+      </div>
+
+      <div class="value">
+        <h4>Craft & Quality</h4>
+        <p>Small-batch blending, ethically-sourced ingredients and rigorous testing ensure each scent performs beautifully on different skin types and occasions.</p>
+      </div>
+
+      <div class="value">
+        <h4>Sustainability</h4>
+        <p>Minimal packaging, recyclable materials, and mindful sourcing are part of our commitment. Refill options are coming soon.</p>
+      </div>
+    </section>
+
+    <section class="notes-team" id="notes">
+      <div class="notes">
+        <h3>Featured Notes</h3>
+        <p>Our house compositions favour a violet-leaf heart with warm amber and oud bases. Below are notes you’ll frequently find in our blends.</p>
+
+        <div class="list" role="list">
+          <div class="note-pill">Bergamot</div>
+          <div class="note-pill">Violet leaf</div>
+          <div class="note-pill">Jasmine</div>
+          <div class="note-pill">Cedarwood</div>
+          <div class="note-pill">Sandalwood</div>
+          <div class="note-pill">Oud</div>
+          <div class="note-pill">Amber</div>
+          <div class="note-pill">Musk</div>
+        </div>
+
+        <h3 style="margin-top:18px">How we compose</h3>
+        <p>We begin with a single inspiration — a memory, a place, a colour — and build accords around it, balancing freshness and depth so every scent leaves a lasting trace.</p>
+      </div>
+
+      <aside class="team card" aria-labelledby="atelier">
+        <h3 id="atelier" style="color:var(--gold);font-family:'Playfair Display',serif;margin-bottom:10px">The Atelier</h3>
+
+        <div class="person">
+          <div class="avatar">AR</div>
+          <div class="meta">
+            <h5>Arjun Rao — Master Perfumer</h5>
+            <p>Head of blends and perfumery. Arjun brings years of experience and a taste for bold, harmonious accords.</p>
+          </div>
+        </div>
+
+        <div class="person">
+          <div class="avatar">SK</div>
+          <div class="meta">
+            <h5>Sana Kapoor — Creative Director</h5>
+            <p>Leads brand storytelling and creative direction from seasonal launches to label design.</p>
+          </div>
+        </div>
+
+        <div class="person">
+          <div class="avatar">PR</div>
+          <div class="meta">
+            <h5>Priya Raman — Customer Experience</h5>
+            <p>Guides clients to their ideal scent — helping match personality with fragrance.</p>
+          </div>
+        </div>
+
+        <div class="contact">
+          <strong>Visit / Contact</strong>
+          <div style="color:var(--muted);margin-top:8px">Email: hello@sageperfumes.com</div>
+          <div style="color:var(--muted);margin-top:6px">Studio: Pune, India</div>
+          <a href="mailto:hello@sageperfumes.com">Get in touch</a>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer>
+    <div style="max-width:980px;margin:0 auto;padding:0 20px">
+      © 2025 Sage Perfumes — Crafted with passion & authenticity
+    </div>
+  </footer>
+</body>
+</html>

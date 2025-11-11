@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sage Perfumes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg1:#0f0520;--bg2:#1f0638;--accent:#9b5cff;--gold:#e7c46a;--muted:rgba(255,255,255,0.7)}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;font-family:Montserrat,system-ui,Arial;background:linear-gradient(90deg,var(--bg1) 0%,var(--bg2) 60%);color:#fff;overflow-x:hidden}
+
+    header{display:flex;align-items:center;justify-content:space-between;padding:32px 64px}
+    .brand{display:flex;align-items:center;gap:24px}
+    .logo img{width:70px;height:auto;border-radius:10px}
+    nav{display:flex;gap:28px}
+    nav a{color:var(--muted);text-decoration:none;font-size:20px}
+    nav a.active{color:var(--gold);font-weight:700;border-bottom:3px solid var(--gold);padding-bottom:4px}
+
+    /* Search and icons */
+    .search-wrap{position:relative}
+    .search-wrap input{padding:14px 20px;border-radius:30px;border:none;background:#ffffff22;color:#fff;font-size:18px;width:280px;outline:none}
+    .search-wrap input::placeholder{color:rgba(255,255,255,0.6)}
+    .suggestions{position:absolute;top:52px;left:0;background:#0b0712;border-radius:12px;width:100%;box-shadow:0 18px 36px rgba(0,0,0,0.6);display:none;z-index:40}
+    .suggestions.visible{display:block}
+    .suggestions ul{list-style:none;margin:0;padding:8px}
+    .suggestions li{padding:10px 12px;border-radius:8px;color:var(--muted);cursor:pointer}
+    .suggestions li:hover,.suggestions li.active{background:#1a1030;color:#fff}
+
+    .icons{display:flex;gap:18px;align-items:center;margin-left:20px}
+    .icon{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#00000022;position:relative;cursor:pointer;font-size:28px}
+    .cart-count{position:absolute;top:-8px;right:-8px;background:var(--gold);color:#111;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800}
+
+    main{display:grid;grid-template-columns:1fr 600px;gap:60px;padding:40px 80px 140px;align-items:start}
+    .hero-left .title{font-family:'Playfair Display',serif;font-size:96px;margin:12px 0 32px;color:var(--accent);line-height:1.1;text-align:center}
+
+    .products{display:flex;flex-direction:row;justify-content:space-between;gap:40px;width:100%;}
+    .product-wrap{width:30%;}
+    .card{width:100%;height:280px;border-radius:20px;background:linear-gradient(180deg,#4b2cff,#2b1063);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.06);transition:transform .22s,box-shadow .22s}
+    .card img{width:75%;height:auto;transition:transform .22s}
+    .product-wrap:hover .card,.card:focus-within{transform:translateY(-12px) scale(1.05);box-shadow:0 32px 60px rgba(0,0,0,0.6)}
+
+    .card-overlay{position:absolute;inset:0;padding:20px;background:linear-gradient(180deg,rgba(0,0,0,0.75),rgba(10,6,20,0.95));display:flex;flex-direction:column;justify-content:center;opacity:0;transform:translateY(10px);transition:opacity .18s,transform .18s}
+    .card:hover .card-overlay,.card:focus-within .card-overlay{opacity:1;transform:translateY(0)}
+    .card-overlay h4{margin:0 0 10px;font-size:22px}
+    .card-overlay p{margin:0 0 14px;font-size:16px;color:rgba(255,255,255,0.95);line-height:1.5}
+    .card-overlay .actions{display:flex;gap:10px}
+    .btn{background:var(--gold);color:#111;border:none;padding:12px 20px;border-radius:24px;font-weight:700;cursor:pointer;font-size:16px}
+
+    .add-area{margin-top:14px;display:flex;justify-content:center}
+    .add-btn{background:transparent;border:1px solid rgba(255,255,255,0.1);color:var(--gold);padding:12px 20px;border-radius:24px;cursor:pointer;font-size:16px}
+
+    .hero-right{display:flex;flex-direction:column;gap:18px;align-items:center}
+    .hero-card{width:500px;height:520px;border-radius:20px;background:linear-gradient(180deg,#2b0b63,#1a073a);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.06);transition:transform .22s,box-shadow .22s}
+    .hero-card img{width:70%;height:auto;transition:transform .22s}
+    .hero-card:hover,.hero-card:focus-within{transform:translateY(-8px) scale(1.03);box-shadow:0 40px 100px rgba(0,0,0,0.7)}
+    .hero-overlay{position:absolute;inset:0;padding:24px;background:linear-gradient(180deg,rgba(0,0,0,0.72),rgba(10,6,20,0.92));display:flex;flex-direction:column;justify-content:center;align-items:flex-start;opacity:0;transform:translateY(8px);transition:opacity .18s,transform .18s}
+    .hero-card:hover .hero-overlay,.hero-card:focus-within .hero-overlay{opacity:1;transform:translateY(0)}
+    .hero-overlay h3{margin:0 0 10px;font-size:26px}
+    .hero-overlay p{margin:0 0 12px;color:rgba(255,255,255,0.95);font-size:18px}
+    .hero-add{display:flex;gap:12px;margin-top:10px}
+
+    /* 🌸 Customer Reviews */
+    .reviews {
+      margin-top: 30px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 20px 24px;
+      width: 90%;
+      text-align: left;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .reviews h3 {
+      color: var(--gold);
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 14px;
+      font-size: 22px;
+    }
+    .review { margin-bottom: 14px; }
+    .review p { font-style: italic; color: rgba(255,255,255,0.9); margin-bottom: 4px; }
+    .review span { font-size: 14px; color: var(--muted); }
+
+    /* cart dropdown */
+    .cart-dropdown{position:absolute;right:64px;top:90px;width:420px;background:#0a0711;border-radius:12px;padding:20px;box-shadow:0 40px 80px rgba(0,0,0,0.7);display:none;font-size:18px}
+    .cart-dropdown.visible{display:block}
+    .cart-item{display:flex;gap:16px;align-items:center;padding:10px 0;border-bottom:1px dashed rgba(255,255,255,0.08)}
+    .cart-item img{width:70px;height:70px;border-radius:10px;object-fit:cover}
+    .cart-footer{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+    .buy-all{background:var(--gold);color:#111;padding:14px 22px;border-radius:28px;border:none;cursor:pointer;font-size:18px;font-weight:700}
+
+    footer{padding:40px;text-align:center;color:var(--muted);font-size:18px;border-top:1px solid rgba(255,255,255,0.1)}
+    /* small highlight when we programmatically focus a product */
+    .flash{box-shadow:0 20px 50px rgba(155,92,255,0.4);transform:translateY(-6px) scale(1.02);transition:box-shadow .4s,transform .4s}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo"><img src="D:/Flame Files/Sem 2/Graphic Design/Website/Golden.png" alt="Sage Perfumes Logo"></div>
+      <nav>
+        <a class="active" href="D:\Flame Files\Sem 2\Graphic Design\Website\Index.html">Home</a>
+        <a href="D:\Flame Files\Sem 2\Graphic Design\Website\About Page.html">About</a>
+        <a href="D:\Flame Files\Sem 2\Graphic Design\Website\Contact Page.html">Contact</a>
+      </nav>
+    </div>
+    <div style="display:flex;align-items:center;">
+      <div class="search-wrap">
+        <input id="searchInput" type="text" placeholder="Search scents..." />
+        <div class="suggestions" id="suggestions" role="listbox" aria-label="Search suggestions">
+          <ul id="suggestionList"></ul>
+        </div>
+      </div>
+      <div class="icons">
+        <div class="icon" title="Account">👤</div>
+        <div class="icon cart-btn" id="cartBtn" title="Cart">🛒
+          <div class="cart-count" id="cartCount">0</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-left">
+      <h1 class="title">TIMELESS <span style="color:#fff">ELEGANCE</span></h1>
+      <div class="products">
+        <div class="product-wrap">
+          <div class="card" data-id="floral" data-name="Floral" data-price="89">
+            <img src="D:/Flame Files/Sem 2/Graphic Design/Website/Screenshot 2025-11-10 095258.png">
+            <div class="card-overlay"><h4>Floral — $89</h4><p>Light & airy with bergamot top notes, jasmine heart and warm sandalwood base.</p><div class="actions"><button class="btn buy-now">Buy Now</button></div></div>
+          </div>
+          <div class="add-area"><button class="add-btn">Add to cart — $89</button></div>
+        </div>
+
+        <div class="product-wrap">
+          <div class="card" data-id="woody" data-name="Woody" data-price="89">
+            <img src="D:/Flame Files/Sem 2/Graphic Design/Website/Screenshot 2025-11-10 095523.png">
+            <div class="card-overlay"><h4>Woody — $89</h4><p>Bold cedar & vetiver with a hint of leather — evening confidence and depth.</p><div class="actions"><button class="btn buy-now">Buy Now</button></div></div>
+          </div>
+          <div class="add-area"><button class="add-btn">Add to cart — $89</button></div>
+        </div>
+
+        <div class="product-wrap">
+          <div class="card" data-id="fresh" data-name="Fresh" data-price="89">
+            <img src="D:/Flame Files/Sem 2/Graphic Design/Website/Screenshot 2025-11-10 095220.png">
+            <div class="card-overlay"><h4>Fresh — $89</h4><p>Crisp citrus top notes, watery middle, clean musk base — modern & energetic.</p><div class="actions"><button class="btn buy-now">Buy Now</button></div></div>
+          </div>
+          <div class="add-area"><button class="add-btn">Add to cart — $89</button></div>
+        </div>
+      </div>
+
+      <p style="margin-top:40px;color:var(--gold);font-size:22px;text-align:center;font-family:'Playfair Display',serif;">
+        <strong>EXPERIENCE PREMIUM</strong><br>
+        <span style="color:#fff;font-size:20px;">Discover a fragrance that brings elegance and charm to every moment—classic, captivating, and unforgettable.</span>
+      </p>
+    </section>
+
+    <aside class="hero-right">
+      <div class="hero-card" data-id="main" data-name="Signature" data-price="129" tabindex="0">
+        <img src="D:/Flame Files/Sem 2/Graphic Design/Website/Main bottle.png" alt="Main perfume">
+        <div class="hero-overlay">
+          <h3>Signature — $129</h3>
+          <p>An exclusive blend: bergamot, violet leaf, oud and warm amber. The house signature — crafted for evening and special moments.</p>
+          <div class="hero-add">
+            <button class="btn buy-now">Buy Now</button>
+            <button class="add-btn">Add to cart — $129</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 🌸 Customer Reviews -->
+      <div class="reviews">
+        <h3>Customer Reviews</h3>
+        <div class="review">
+          <p>“Absolutely divine! The Signature scent lasts all day and feels luxurious.”</p>
+          <span>— Priya R.</span>
+        </div>
+        <div class="review">
+          <p>“This perfume turns heads wherever I go. It’s my go-to for evening events.”</p>
+          <span>— Aisha M.</span>
+        </div>
+        <div class="review">
+          <p>“Elegant, deep, and unforgettable — worth every bit.”</p>
+          <span>— Rohan K.</span>
+        </div>
+      </div>
+
+      <div class="cart-dropdown" id="cartDropdown"><div id="cartItems">Your cart is empty</div><div class="cart-footer"><div><strong>Total:</strong> <span id="cartTotal">$0.00</span></div><button class="buy-all" id="buyAll">Buy All</button></div></div>
+    </aside>
+  </main>
+
+  <footer>© 2025 Sage Perfumes — Crafted with passion and authenticity</footer>
+
+  <script>
+  (function(){
+    // Product map
+    const PRODUCTS = {
+      floral: { id:'floral', name:'Floral', price:89 },
+      woody: { id:'woody', name:'Woody', price:89 },
+      fresh: { id:'fresh', name:'Fresh', price:89 },
+      main:  { id:'main',  name:'Signature', price:129 }
+    };
+
+    // Cart state persisted in localStorage
+    const CART_KEY = 'sage_cart_v1';
+    let cart = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+
+    // DOM refs
+    const cartBtn = document.getElementById('cartBtn');
+    const cartCount = document.getElementById('cartCount');
+    const cartDropdown = document.getElementById('cartDropdown');
+    const cartItemsEl = document.getElementById('cartItems');
+    const cartTotalEl = document.getElementById('cartTotal');
+
+    // Search refs
+    const searchInput = document.getElementById('searchInput');
+    const suggestionsBox = document.getElementById('suggestions');
+    const suggestionList = document.getElementById('suggestionList');
+    const SUGGESTIONS = ['Signature','Floral','Woody','Fresh','Citrus Breeze','Midnight Oud','Rose Velvet','Amber Note'];
+
+    // utils
+    function save(){ localStorage.setItem(CART_KEY, JSON.stringify(cart)); }
+    function fmt(n){ return '$' + Number(n).toFixed(2); }
+    function animateCart(){ cartBtn.animate([{transform:'scale(1)'},{transform:'scale(1.08)'},{transform:'scale(1)'}],{duration:220}); }
+
+    // render cart
+    function renderCart(){
+      cartCount.textContent = cart.reduce((s,i)=> s + i.qty, 0);
+      if(cart.length === 0){
+        cartItemsEl.innerHTML = '<div style="padding:8px;color:var(--muted)">Your cart is empty</div>';
+        cartTotalEl.textContent = '$0.00';
+        return;
+      }
+      cartItemsEl.innerHTML = '';
+      cart.forEach(item => {
+        const d = document.createElement('div');
+        d.className = 'cart-item';
+        d.innerHTML = `
+          <img src="${item.img}" alt="${item.name}">
+          <div style="flex:1">
+            <div style="font-weight:700">${item.name}</div>
+            <div style="opacity:.9">${item.qty} × ${fmt(item.price)}</div>
+          </div>
+          <button class="remove" data-id="${item.id}" style="background:transparent;border:0;color:var(--muted);font-size:18px;cursor:pointer">✖</button>
+        `;
+        cartItemsEl.appendChild(d);
+      });
+      cartTotalEl.textContent = fmt(cart.reduce((s,i)=> s + i.qty * i.price, 0));
+    }
+
+    // add item
+    function addToCart(id, img){
+      if(!PRODUCTS[id]) return;
+      const found = cart.find(x=> x.id === id);
+      if(found) found.qty++;
+      else cart.push({ id, name: PRODUCTS[id].name, price: PRODUCTS[id].price, qty:1, img: img || '' });
+      save();
+      renderCart();
+      animateCart();
+    }
+
+    function removeFromCart(id){
+      cart = cart.filter(x => x.id !== id);
+      save();
+      renderCart();
+    }
+
+    // Try to detect product id when clicking add-btn:
+    function inferIdFromButton(btn){
+      // 1) nearest .product-wrap -> .card[data-id]
+      const wrap = btn.closest('.product-wrap');
+      if(wrap){
+        const card = wrap.querySelector('.card[data-id]');
+        if(card && card.dataset.id) return card.dataset.id;
+      }
+      // 2) If inside hero area, closest .hero-card
+      const heroCard = btn.closest('.hero-card');
+      if(heroCard && heroCard.dataset.id) return heroCard.dataset.id;
+      if(heroCard) return 'main';
+      // 3) fallback: look for button's text to guess price or name (not needed typically)
+      return null;
+    }
+
+    // Programmatic highlight
+    function highlightCard(id){
+      const el = document.querySelector(`.card[data-id="${id}"], .hero-card[data-id="${id}"]`);
+      if(!el) return;
+      el.classList.add('flash');
+      setTimeout(()=> el.classList.remove('flash'), 600);
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+    }
+
+    // Search suggestions behavior
+    let filtered = [], activeIndex = -1;
+    function renderSuggestions(list){
+      suggestionList.innerHTML = '';
+      if(!list.length){ suggestionsBox.classList.remove('visible'); return; }
+      list.forEach((item, idx) => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        li.dataset.index = idx;
+        li.tabIndex = 0;
+        li.addEventListener('click', ()=> selectSuggestion(idx));
+        suggestionList.appendChild(li);
+      });
+      suggestionsBox.classList.add('visible');
+    }
+    function updateFilter(){
+      const q = searchInput.value.trim().toLowerCase();
+      if(!q) filtered = SUGGESTIONS.slice(0,6);
+      else filtered = SUGGESTIONS.filter(s => s.toLowerCase().includes(q));
+      activeIndex = -1;
+      renderSuggestions(filtered);
+    }
+    function selectSuggestion(idx){
+      const value = filtered[idx];
+      if(!value) return;
+      searchInput.value = value;
+      suggestionsBox.classList.remove('visible');
+      // try mapping to id (first word lowercase)
+      const key = value.toLowerCase().split(' ')[0];
+      highlightCard(key);
+    }
+
+    // Event delegation
+    document.body.addEventListener('click', (e) => {
+      // Add to cart buttons (both overlay and small ones)
+      const addBtn = e.target.closest('.add-btn');
+      if(addBtn){
+        const id = inferIdFromButton(addBtn) || addBtn.dataset.id || 'main';
+        // find image
+        let imgEl = null;
+        const wrap = addBtn.closest('.product-wrap');
+        if(wrap) imgEl = wrap.querySelector('img');
+        if(!imgEl){
+          const hero = addBtn.closest('.hero-card');
+          if(hero) imgEl = hero.querySelector('img');
+        }
+        const src = imgEl ? imgEl.src : '';
+        addToCart(id, src);
+        return;
+      }
+
+      // Buy now for a single product
+      const buy = e.target.closest('.buy-now');
+      if(buy){
+        // determine product id
+        const card = buy.closest('.card') || buy.closest('.hero-card');
+        const id = (card && card.dataset && card.dataset.id) ? card.dataset.id : (card ? 'main' : null);
+        if(!id) return;
+        alert(`Checkout: ${PRODUCTS[id].name} — ${fmt(PRODUCTS[id].price)}`);
+        return;
+      }
+
+      // Remove item from cart
+      const rem = e.target.closest('.remove');
+      if(rem){
+        removeFromCart(rem.dataset.id);
+        return;
+      }
+
+      // Buy all
+      if(e.target.closest('#buyAll')){
+        if(cart.length === 0){ alert('Cart empty'); return; }
+        const summary = cart.map(i => `${i.name} × ${i.qty}`).join('\\n');
+        const total = cart.reduce((s,i)=> s + i.qty * i.price, 0);
+        alert(`Proceeding to checkout:\\n${summary}\\nTotal: ${fmt(total)}`);
+        return;
+      }
+
+      // Cart toggle
+      if(e.target.closest('#cartBtn') || e.target.closest('.cart-btn')){
+        cartDropdown.classList.toggle('visible');
+        return;
+      }
+
+      // clicking a suggestion list item handled above by event listener on li
+      // close suggestions/cart if clicked outside
+      if(!e.target.closest('.search-wrap')) suggestionsBox.classList.remove('visible');
+      if(!e.target.closest('.cart-dropdown') && !e.target.closest('.cart-btn') && !e.target.closest('#cartBtn')) cartDropdown.classList.remove('visible');
+    });
+
+    // keyboard and search listeners
+    searchInput.addEventListener('focus', updateFilter);
+    searchInput.addEventListener('input', updateFilter);
+    searchInput.addEventListener('keydown', (e) => {
+      const items = suggestionList.querySelectorAll('li');
+      if(e.key === 'ArrowDown'){
+        activeIndex = Math.min(activeIndex + 1, items.length - 1);
+        items.forEach((it,i)=> it.classList.toggle('active', i===activeIndex));
+        items[activeIndex]?.focus();
+        e.preventDefault();
+      } else if(e.key === 'ArrowUp'){
+        activeIndex = Math.max(activeIndex - 1, 0);
+        items.forEach((it,i)=> it.classList.toggle('active', i===activeIndex));
+        items[activeIndex]?.focus();
+        e.preventDefault();
+      } else if(e.key === 'Enter'){
+        if(activeIndex >= 0) selectSuggestion(activeIndex);
+      } else if(e.key === 'Escape'){
+        suggestionsBox.classList.remove('visible');
+      }
+    });
+
+    // initial render
+    renderCart();
+
+    // Highlight product if user clicks a suggestion (handled by selectSuggestion)
+    // Optionally focus on buy-now button on highlight: handled in highlightCard via scroll
+  })();
+  </script>
+</body>
+</html>
