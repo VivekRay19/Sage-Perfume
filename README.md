@@ -4,8 +4,6 @@
 >
 > *Experience the art of scent through an immersive, dark-themed e-commerce interface built with vanilla web technologies.*
 
-![Sage Banner](Website/Screenshot%202025-11-10%20095523.png) 
-*(Note: Ensure your screenshots are in the root or a folder named 'assets' or 'Website' to match this path)*
 
 ---
 
@@ -46,17 +44,6 @@ This project was built without external frameworks to demonstrate core competenc
 * **Structure:** Semantic HTML5
 * **Styling:** CSS3 (Flexbox, Grid, CSS Variables, Gradients)
 * **Logic:** Vanilla JavaScript (DOM Manipulation, Event Listeners)
-
----
-
-## 📸 Gallery
-
-| **Home Page** | **Cart Interaction** |
-|:---:|:---:|
-| <img src="Website/Screenshot%202025-11-10%20095220.png" width="400"> | <img src="Website/Screenshot%202025-11-10%20095258.png" width="400"> |
-
-*(The "Atelier" / About Section)*
-<img src="Website/Screenshot%202025-11-10%20095523.png" width="100%">
 
 ---
 
